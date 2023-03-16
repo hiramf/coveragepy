@@ -79,13 +79,13 @@ jobs:
 
       - name: "Run tox for ${{ matrix.python-version }}"
         run: |
-          python -m tox -- -rfsEX
+          python -m tox -- -rfsEX -n 0 --maxfail=1
 
-      - name: "Retry tox for ${{ matrix.python-version }}"
-        if: failure()
-        run: |
-          # `exit 1` makes sure that the job remains red with flaky runs
-          python -m tox -- -rfsEX --lf -vvvvv && exit 1
+      #- name: "Retry tox for ${{ matrix.python-version }}"
+      #  if: failure()
+      #  run: |
+      #    # `exit 1` makes sure that the job remains red with flaky runs
+      #    python -m tox -- -rfsEX --lf -vvvvv && exit 1
 
   # This job aggregates test results. It's the required check for branch protection.
   # https://github.com/marketplace/actions/alls-green#why
